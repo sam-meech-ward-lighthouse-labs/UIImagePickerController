@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
@@ -30,12 +30,22 @@
 #pragma mark - Actions
 
 - (IBAction)selectImage:(id)sender {
-    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init]; // 1
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     
-    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary; // 2
+    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    imagePicker.delegate = self;
     
-    [self presentViewController:imagePicker animated:YES completion:nil]; // 3
+    [self presentViewController:imagePicker animated:YES completion:nil];
 }
 
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    UIImage *selectedImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+    
+    self.imageView.image = selectedImage;
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 @end

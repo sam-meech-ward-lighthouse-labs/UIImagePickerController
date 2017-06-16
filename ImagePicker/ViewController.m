@@ -30,6 +30,11 @@
 #pragma mark - Actions
 
 - (IBAction)selectImage:(id)sender {
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init]; // 1
+    
+    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary; // 2
+    
+    [self presentViewController:imagePicker animated:YES completion:nil]; // 3
 }
 
 

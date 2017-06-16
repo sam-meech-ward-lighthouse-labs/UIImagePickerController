@@ -32,7 +32,12 @@
 - (IBAction)selectImage:(id)sender {
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     
-    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    if ([UIImagePickerController isSourceTypeAvailable:(UIImagePickerControllerSourceTypeCamera)]) {
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    } else {
+        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    
     imagePicker.delegate = self;
     
     [self presentViewController:imagePicker animated:YES completion:nil];
